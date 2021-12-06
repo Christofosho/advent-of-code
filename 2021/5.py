@@ -1,6 +1,32 @@
+# Advent of Code: Day 5
+
+# Constants
 p1 = x = 0
 p2 = y = 1
 
+## Helpers
+def helper(L):
+  lines = [[
+    [int(p1) for p1 in line[0].split(",")],
+    [int(p2) for p2 in line[1].split(",")]]
+    for line in L
+  ]
+
+  highestX = 0
+  highestY = 0
+  for line in lines:
+    if line[p1][x] > highestX:
+      highestX = line[p1][x]
+    if line[p2][x] > highestX:
+      highestX = line[p2][x]
+    if line[p1][y] > highestY:
+      highestY = line[p1][y]
+    if line[p2][y] > highestY:
+      highestY = line[p2][y]
+
+  return lines, highestX, highestY
+
+## Part 1
 def part1(lines, highestX, highestY):
   grid = [
     [0] * (highestX + 1)
@@ -24,9 +50,9 @@ def part1(lines, highestX, highestY):
         if grid[currentY][p1x] == 2:
           badNodes += 1
 
-  print(badNodes)
   return badNodes
 
+## Part 2
 def part2(lines, highestX, highestY):
   grid = [
     [0] * (highestX + 1)
@@ -68,31 +94,9 @@ def part2(lines, highestX, highestY):
         if grid[currentY][p1x] == 2:
           badNodes += 1
 
-  print(badNodes)
   return badNodes
 
-def helper(L):
-  lines = [[
-    [int(p1) for p1 in line[0].split(",")],
-    [int(p2) for p2 in line[1].split(",")]]
-    for line in L
-  ]
-
-  highestX = 0
-  highestY = 0
-  for line in lines:
-    if line[p1][x] > highestX:
-      highestX = line[p1][x]
-    if line[p2][x] > highestX:
-      highestX = line[p2][x]
-    if line[p1][y] > highestY:
-      highestY = line[p1][y]
-    if line[p2][y] > highestY:
-      highestY = line[p2][y]
-
-  return lines, highestX, highestY
-
-with open("input5.txt", "r") as F:
+with open("2021/input/5.txt", "r") as F:
   L = [
     x.strip().split(" -> ") for x in F.readlines()
   ]

@@ -1,3 +1,6 @@
+# Advent of Code: Day 4
+
+## Helpers
 def makeBoards(boards):
   return [
     [
@@ -15,6 +18,7 @@ def calculate(board, val):
     if type(i) is str
   )
 
+## Part 1
 def part1(L):
   numbers = L[0].split(",")
   boards  = makeBoards(L[1:])
@@ -37,6 +41,7 @@ def part1(L):
 
             break
 
+## Part 2
 def part2(L):
   numbers = L[0].split(",")
   boards  = makeBoards(L[1:])
@@ -78,7 +83,7 @@ def part2(L):
 
     boards = newBoards
 
-with open("input4.txt", "r") as F:
+with open("2021/input/4.txt", "r") as F:
   L = [x.strip() for x in F.readlines()]
 
   assert part1(L) == 33348
