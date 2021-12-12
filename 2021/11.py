@@ -1,4 +1,4 @@
-# Advent of Code: Day 9
+# Advent of Code: Day 11
 
 ## Helpers
 def flash(L, i, j):
@@ -76,7 +76,6 @@ def part1(L, steps):
 def part2(L):
   total = 0
   while True:
-    print(L)
     if all([all(octo == 0 for octo in row) for row in L]):
       return total
 

@@ -1,4 +1,4 @@
-# Advent of Code: Day 9
+# Advent of Code: Day 10
 
 ## Tests
 def test():
