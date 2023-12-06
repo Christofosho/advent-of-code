@@ -1,6 +1,5 @@
 import os
 import re
-from collections import defaultdict
 
 sample = [
   "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
