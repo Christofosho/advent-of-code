@@ -2,7 +2,7 @@ import fs from 'fs';
 import { log, test } from './helpers';
 
 const countElves = (L: string): number[] => {
-  const inputList = input.split(/\r?\n/);
+  const inputList = L.split(/\r?\n/);
   const elves: number[] = [0];
   inputList.forEach(v => {
     if (v === "") {
