@@ -17,21 +17,21 @@ def getMatches(line, pattern):
 
     return len(win & cur)
 
-def part1(input):
+def part1(L):
   total = 0
   pattern = re.compile(r'(\d+)')
-  for line in input:
+  for line in L:
     matches = getMatches(line, pattern) - 1
     if matches > -1:
       total += 2 ** matches
 
   return total
 
-def part2(input):
-  total = len(input)
+def part2(L):
+  total = len(L)
   extra = {}
   pattern = re.compile(r'(\d+)')
-  for i, line in enumerate(input):
+  for i, line in enumerate(L):
     matches = getMatches(line, pattern)
 
     if matches > 0:

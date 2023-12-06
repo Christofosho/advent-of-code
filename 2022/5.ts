@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { log, test } from './helpers';
 
-const parseCrates = (input: string): [string[], string[][]] => {
-  const lines = input.split(/\r?\n/);
+const parseCrates = (L: string): [string[], string[][]] => {
+  const lines = L.split(/\r?\n/);
   const crates: string[] = [];
   let moves: string[][] = [];
 
@@ -54,12 +54,12 @@ const parseCrates = (input: string): [string[], string[][]] => {
   return [crates, moves];
 }
 
-const shuffleCrates = (input: string): string[][] => {
+const shuffleCrates = (L: string): string[][] => {
   return[[""]]
 }
 
-const getTopCrates = (input: string): string => {
-  const crates = parseCrates(input);
+const getTopCrates = (L: string): string => {
+  const crates = parseCrates(L);
 
   return "";
 }
@@ -80,7 +80,7 @@ fs.readFile('2022/5.txt', 'utf8', (error, data) => {
   test('puzzle', getTopCrates, data, 'CMZ');
 });
 
-const countAnyOverlap = (input: string): number => {
+const countAnyOverlap = (L: string): number => {
   return 0;
 }
 

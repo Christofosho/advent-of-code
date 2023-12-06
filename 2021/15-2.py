@@ -2,7 +2,7 @@
 
 ## Tests
 def test1():
-  input = [
+  L = [
     "1163751742",
     "1381373672",
     "2136511328",
@@ -14,17 +14,17 @@ def test1():
     "1293138521",
     "2311944581",
   ]
-  assert part1([list(map(int,list(i))) for i in input]) == 40
+  assert part1([list(map(int,list(i))) for i in L]) == 40
 
 def test2():
-  input = [
+  L = [
     "19111",
     "11191",
     "99991",
     "99991",
     "99991",
   ]
-  assert part1([list(map(int,list(i))) for i in input]) == 10
+  assert part1([list(map(int,list(i))) for i in L]) == 10
 
 def checkCost(cave, y, x, costs, visited):
   key = f"{y}-{x}"

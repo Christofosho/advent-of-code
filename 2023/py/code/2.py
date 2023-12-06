@@ -1,10 +1,10 @@
 import os
 import re
 
-def part1(input) -> int:
+def part1(L) -> int:
   games = []
   skip = False
-  for i, game in enumerate(input):
+  for i, game in enumerate(L):
     draws = game.split(": ")[1]
     subsets = draws.split("; ")
     for subset in subsets:
@@ -28,9 +28,9 @@ def part1(input) -> int:
 
   return sum([int(game) for game in games])
 
-def part2(input):
+def part2(L):
   games = []
-  for game in input:
+  for game in L:
     draws = game.split(": ")[1]
     subsets = draws.split("; ")
     mins = {

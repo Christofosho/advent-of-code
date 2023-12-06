@@ -39,16 +39,16 @@ numbers = {
 
 # Given the start and end coordinates of a number,
 # check for symbols around the edge.
-def matcher(input, y, s, e, pattern):
+def matcher(L, y, s, e, pattern):
   # Check all squares around N in the 2D array
   startX = max(0, s - 1)
   startY = max(0, y - 1)
-  endX   = min(len(input[startY]) - 1, e)
-  endY   = min(len(input) - 1, y + 1)
+  endX   = min(len(L[startY]) - 1, e)
+  endY   = min(len(L) - 1, y + 1)
   while startY <= endY:
     currX = startX
     while currX <= endX:
-      m = pattern.match(input[startY][currX])
+      m = pattern.match(L[startY][currX])
       if bool(m):
         return True
 
@@ -58,10 +58,10 @@ def matcher(input, y, s, e, pattern):
 
   return False
 
-def part1(input):
+def part1(L):
   pattern = re.compile(r'[^0-9\.]+')
   nums = []
-  for y, line in enumerate(input):
+  for y, line in enumerate(L):
     x = 0
     while x < len(line):
       e = x
@@ -71,7 +71,7 @@ def part1(input):
       except:
         pass
 
-      matched = matcher(input, y, x, e, pattern)
+      matched = matcher(L, y, x, e, pattern)
 
       if matched and line[x:e]:
         nums.append(int(line[x:e]))
@@ -83,18 +83,18 @@ def part1(input):
 
 # Given the start and end coordinates of a number,
 # check for symbols around the edge.
-def matcher2(input, y, s, e, pattern):
+def matcher2(L, y, s, e, pattern):
   # Check all squares around N in the 2D array
   startX = max(0, s - 1)
   startY = max(0, y - 1)
-  endX   = min(len(input[startY]) - 1, e)
-  endY   = min(len(input) - 1, y + 1)
+  endX   = min(len(L[startY]) - 1, e)
+  endY   = min(len(L) - 1, y + 1)
   ret = []
   while startY <= endY:
     currX = startX
     while currX <= endX:
-      m = pattern.match(input[startY][currX])
-      if bool(m) and input[startY][currX] == "*":
+      m = pattern.match(L[startY][currX])
+      if bool(m) and L[startY][currX] == "*":
         ret.append(f"{currX},{startY}")
 
       currX += 1
@@ -103,10 +103,10 @@ def matcher2(input, y, s, e, pattern):
 
   return ret
 
-def part2(input):
+def part2(L):
   pattern = re.compile(r'[^0-9\.]+')
   matched = {}
-  for y, line in enumerate(input):
+  for y, line in enumerate(L):
     x = 0
     while x < len(line):
       e = x
@@ -116,7 +116,7 @@ def part2(input):
       except:
         pass
 
-      m = matcher2(input, y, x, e, pattern)
+      m = matcher2(L, y, x, e, pattern)
 
       if m and line[x:e]:
         for n in m:

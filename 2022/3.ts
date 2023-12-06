@@ -1,19 +1,19 @@
 import fs from 'fs';
 import { log, test } from './helpers';
 
-const getSacks = (input: string): string[] => {
-  return input.split(/\r?\n/);
+const getSacks = (L: string): string[] => {
+  return L.split(/\r?\n/);
 }
 
-const parseSacks = (input: string): string[][] => {
-  const toSplit: string[] = getSacks(input);
+const parseSacks = (L: string): string[][] => {
+  const toSplit: string[] = getSacks(L);
   return toSplit.map(v => [v.substring(0, Math.floor(v.length / 2)), v.substring(Math.floor(v.length / 2))])
 }
 
 const getPriority = (c: string): number => c.charCodeAt(0) > 96 ? c.charCodeAt(0) - 96 : c.charCodeAt(0) - 38;
 
-const getPrioritySum = (input: string) => {
-  const sacks = parseSacks(input);
+const getPrioritySum = (L: string) => {
+  const sacks = parseSacks(L);
   let total = 0;
   sacks.forEach(sack => {
     const sackExists: {[key: string]: boolean} = {};
@@ -44,8 +44,8 @@ fs.readFile('2022/3.txt', 'utf8', (error, data) => {
   test('puzzle', getPrioritySum, data, 7863);
 });
 
-const getBadges = (input: string) => {
-  const sacks = getSacks(input);
+const getBadges = (L: string) => {
+  const sacks = getSacks(L);
   let total = 0;
   for (let i = 0; i < sacks.length; i += 3) {
     const sackExists: {[key: string]: boolean} = {};

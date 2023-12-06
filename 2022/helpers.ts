@@ -6,9 +6,9 @@ export const assert = (check: boolean): void => {
   console.assert(check);
 }
 
-export const test = (name: string, func: Function, input: string, expected: string|number): void => {
+export const test = (name: string, func: Function, L: string, expected: string|number): void => {
   log(`Begin ${name}...`);
-  const response = func(input);
+  const response = func(L);
   log(`Expected: ${expected} -- Response: ${response}`);
 
   assert(expected === response);

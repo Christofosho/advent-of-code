@@ -2,12 +2,12 @@
 
 ## Tests
 def test1():
-  #input = "target area: x=20..30, y=-10..-5".split()
-  #assert part1(input) == 45
+  #L = "target area: x=20..30, y=-10..-5".split()
+  #assert part1(L) == 45
 
 def test2():
-  #input = "target area: x=20..30, y=-10..-5".split()
-  #assert part2(input) == 112
+  #L = "target area: x=20..30, y=-10..-5".split()
+  #assert part2(L) == 112
 
 ## Part 1
 def part1(parameters):

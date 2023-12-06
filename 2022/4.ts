@@ -1,12 +1,12 @@
 import fs from 'fs';
 import { log, test } from './helpers';
 
-const parsePairs = (input: string): string[] => {
-  return input.split(/\r?\n/);
+const parsePairs = (L: string): string[] => {
+  return L.split(/\r?\n/);
 }
 
-const parsePairRanges = (input: string): number[][][] => {
-  const pairs = parsePairs(input);
+const parsePairRanges = (L: string): number[][][] => {
+  const pairs = parsePairs(L);
   return pairs
     .map(pair => pair
       .split(',')
@@ -15,8 +15,8 @@ const parsePairRanges = (input: string): number[][][] => {
         .map(i => Number(i))));
 }
 
-const countFullOverlap = (input: string): number => {
-  const pairRanges = parsePairRanges(input);
+const countFullOverlap = (L: string): number => {
+  const pairRanges = parsePairRanges(L);
   let totalFullOverlaps = 0;
   pairRanges.forEach(pair => {
     if ((pair[0][0] >= pair[1][0] && pair[0][1] <= pair[1][1])
@@ -41,8 +41,8 @@ fs.readFile('2022/4.txt', 'utf8', (error, data) => {
   test('puzzle', countFullOverlap, data, 588);
 });
 
-const countAnyOverlap = (input: string): number => {
-  const pairRanges = parsePairRanges(input);
+const countAnyOverlap = (L: string): number => {
+  const pairRanges = parsePairRanges(L);
   let totalOverlaps = 0;
   pairRanges.forEach(pair => {
     if ((pair[0][1] >= pair[1][0] && pair[0][1] <= pair[1][1])

@@ -2,7 +2,7 @@
 
 ## Tests
 def test1():
-  input = [
+  L = [
     "NNCB",
     "",
     "CH -> B",
@@ -22,11 +22,11 @@ def test1():
     "CC -> N",
     "CN -> C",
   ]
-  template = list(input[0])
-  assert solve(template, [rule.split(" -> ") for rule in input[2:]], 10) == 1588
+  template = list(L[0])
+  assert solve(template, [rule.split(" -> ") for rule in L[2:]], 10) == 1588
 
 def test2():
-  input = [
+  L = [
     "NNCB",
     "",
     "CH -> B",
@@ -46,8 +46,8 @@ def test2():
     "CC -> N",
     "CN -> C",
   ]
-  template = list(input[0])
-  assert solve(template, [rule.split(" -> ") for rule in input[2:]], 40) == 2188189693529
+  template = list(L[0])
+  assert solve(template, [rule.split(" -> ") for rule in L[2:]], 40) == 2188189693529
 
 ## helper
 def solve(template, rules, steps):

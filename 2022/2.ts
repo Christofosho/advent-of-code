@@ -25,12 +25,12 @@ const lose: Record<string, string> = {
   C: "Y",
 } as const;
 
-const parseRounds = (input: string): string[][] => {
-  return input.split(/\r?\n/).map(i => i.split(' '));
+const parseRounds = (L: string): string[][] => {
+  return L.split(/\r?\n/).map(i => i.split(' '));
 }
 
-const getTotalScore1 = (input: string): number => {
-  const rounds = parseRounds(input);
+const getTotalScore1 = (L: string): number => {
+  const rounds = parseRounds(L);
   let total = 0;
   rounds.forEach(round => {
     const opponent = round[0];
@@ -61,8 +61,8 @@ fs.readFile('2022/2.txt', 'utf8', (error, data) => {
   test('puzzle', getTotalScore1, data, 12679);
 });
 
-const getTotalScore2 = (input: string): number => {
-  const rounds = parseRounds(input);
+const getTotalScore2 = (L: string): number => {
+  const rounds = parseRounds(L);
   let total = 0;
   rounds.forEach(round => {
     const opponent = round[0];

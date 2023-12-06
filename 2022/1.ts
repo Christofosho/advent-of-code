@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { log, test } from './helpers';
 
-const countElves = (input: string): number[] => {
+const countElves = (L: string): number[] => {
   const inputList = input.split(/\r?\n/);
   const elves: number[] = [0];
   inputList.forEach(v => {
@@ -13,13 +13,13 @@ const countElves = (input: string): number[] => {
   return elves;
 }
 
-const findHighestQuantity = (input: string): number => {
-  const elves = countElves(input);
+const findHighestQuantity = (L: string): number => {
+  const elves = countElves(L);
   return Math.max(...elves);
 }
 
-const sumThreeHighest = (input: string): number => {
-  const elves = countElves(input);
+const sumThreeHighest = (L: string): number => {
+  const elves = countElves(L);
   elves.sort((a: number, b: number): number => b - a);
   return elves[0] + elves[1] + elves[2];
 }

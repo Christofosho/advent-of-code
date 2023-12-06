@@ -40,10 +40,10 @@ sample = [
 def numeric(x):
   return x in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-def do(input, seeds):
+def do(L, seeds):
   visited = [False] * len(seeds)
 
-  for line in input[1:]:
+  for line in L[1:]:
     if len(line) == 0:
       continue
 
@@ -60,16 +60,16 @@ def do(input, seeds):
 
   return min(seeds)
 
-def part1(input):
+def part1(L):
   # First line is always seeds
-  firstLine = input[0]
+  firstLine = L[0]
   valueString = firstLine.split(": ")[1]
   seeds = [int(s) for s in valueString.split(" ")]
-  return do(input, seeds)
+  return do(L, seeds)
 
-# def checkSeed(seed, input):
+# def checkSeed(seed, L):
 #   visited = False
-#   for line in input[1:]:
+#   for line in L[1:]:
 #     if len(line) == 0:
 #       continue
 
@@ -88,7 +88,7 @@ def part1(input):
 # def partition(seed1, seed2):
 #   seeds = [seed1, seed2]
 #   visited = False
-#   for line in input[1:]:
+#   for line in L[1:]:
 #     if len(line) == 0:
 #       continue
 
@@ -107,21 +107,21 @@ def part1(input):
 #       if seed2 >= source2:
 #         seeds.append(source2)
 
-# def part2(input):
+# def part2(L):
 #   # First line is seed, count, seed, count
-#   firstLine = input[0]
+#   firstLine = L[0]
 #   valueString = firstLine.split(": ")[1]
 #   seedAndCounts = [int(s) for s in valueString.split(" ")]
 #   seed = math.inf
 #   for i in range(0, len(seedAndCounts), 2):
 #     seeds = partition(seedAndCounts[i], seedAndCounts[i] + seedAndCounts[i + 1])
 #     for s in seeds:
-#       seed = min(seed, checkSeed(s, input))
+#       seed = min(seed, checkSeed(s, L))
 #   print(seed)
 #   return seed
 
-def part2(input):
-  firstLine = input[0]
+def part2(L):
+  firstLine = L[0]
   valueString = firstLine.split(": ")[1]
   counts = [int(s) for s in valueString.split(" ")]
   seeds = [
@@ -130,7 +130,7 @@ def part2(input):
   ]
 
   chunks = []
-  for line in input[1:]:
+  for line in L[1:]:
     if len(line) == 0:
       continue
 
