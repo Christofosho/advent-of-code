@@ -1,4 +1,5 @@
 import os
+from collections import deque
 
 sample1 = [
 "px{a<2006:qkq,m>2090:A,rfg}",
@@ -20,7 +21,8 @@ sample1 = [
 "{x=2127,m=1623,a=2188,s=1013}",
 ]
 
-def workflowParser(workflows, line):
+workflows = {}
+def workflowParser(line):
   name, rules = line.split("{")
   rules = rules.rstrip("}").split(",")
   final = rules.pop()
@@ -35,7 +37,6 @@ def workflowParser(workflows, line):
 def parse(L):
   # Groom the input
   parseWorkflow = True
-  workflows = {}
   ratings = []
   for line in L:
     line = line.strip("\n")
@@ -44,7 +45,7 @@ def parse(L):
       continue
 
     if parseWorkflow:
-      workflowParser(workflows, line)
+      workflowParser(line)
 
     else:
       line = line.lstrip("{")
@@ -54,7 +55,7 @@ def parse(L):
         k, v = rating.split("=")
         ratings[-1][k] = v
 
-  return workflows, ratings
+  return ratings
 
 def walktheGauntlet(rating, workflows):
     workflow = workflows["in"]
@@ -96,7 +97,7 @@ def walktheGauntlet(rating, workflows):
       workflow = workflows[nextWorkflow]
 
 
-def part1(workflows, ratings):
+def part1(ratings):
   # Walk the gauntlet
   total = 0
   while ratings:
@@ -105,27 +106,60 @@ def part1(workflows, ratings):
 
   return total
 
-def part2(L):
-  workflows = {}
-  for line in L:
-    workflowParser(workflows, line)
+def pick(name, ratings):
+  if name == "R":
+    return 0
+
+  elif name == "A":
+    total = 1
+    for low, high in ratings.values():
+      total *= high - low + 1
+    return total
+
+  rules = workflows[name]
 
   total = 0
-  for x in range(1, 4001):
-    for m in range(1, 4001):
-      for a in range(1, 4001):
-        for s in range(1, 4001):
-          total += walktheGauntlet({
-            "x": x,
-            "m": m,
-            "a": a,
-            "s": s
-          }, workflows)
+  for rule, step in rules:
+    if rule == None:
+      total += pick(step, ratings)
+      break
+
+    low, high = ratings[rule[0]]
+    compare = int(rule[2:])
+    if rule[1] == "<":
+      valid = (low, compare - 1)
+      invalid = (compare, high)
+    else:
+      valid = (compare + 1, high)
+      invalid = (low, compare)
+
+    # Check for valid valid  >o<
+    if valid[0] <= valid[1]:
+      modify = dict(ratings)
+      modify[rule[0]] = valid
+      total += pick(step, modify)
+
+    if invalid[0] <= invalid[1]:
+      ratings = dict(ratings)
+      ratings[rule[0]] = invalid
+    else:
+      break
 
   return total
 
+def part2(L):
+  for line in L:
+    line = line.strip("\n")
+    if line == "":
+      break
+
+    workflowParser(line)
+
+  total = pick("in", { category: (1, 4000) for category in "xmas" })
+  return total
+
 print("Test 1")
-assert part1(*parse(sample1)) == 19114
+assert part1(parse(sample1)) == 19114
 print("Test 1 passed")
 
 print("Test 2")
@@ -141,5 +175,5 @@ with open(path, "r") as f:
   print("assert part1(L) == 362930 passed")
 
   print("Begin Part 2:")
-  assert part2(L) == 0
-  print("assert part2(L) == 0 passed")
+  assert part2(L) == 116365820987729
+  print("assert part2(L) == 116365820987729 passed")
