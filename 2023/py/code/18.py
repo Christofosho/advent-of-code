@@ -147,9 +147,3 @@ with open(path, "r") as f:
   print("Begin Part 2:")
   assert part2(L) == 40343619199142
   print("assert part2(L) == 40343619199142 passed")
-
-#73936
-#64674
-#62848
-#61944
-#61442
