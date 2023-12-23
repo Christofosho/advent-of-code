@@ -1,4 +1,5 @@
 import os
+from math import lcm
 from collections import deque
 
 sample1 = '''broadcaster -> a, b, c
@@ -73,24 +74,20 @@ class dead:
 
   def __init__(self, name):
     self.name = name
+    self.out = []
 
   def add(self, out):
     pass
 
   def act(self, _in, pulse):
-    if pulse == False and self.name == "rx":
-      print("rx")
+    pass
 
   def send(self):
     pass
 
-def part1(L, press = 1000):
-  counts[0] = 0
-  counts[1] = 0
+def parseNodes(L):
   nodes.clear()
   instructions = L.split("\n")
-
-  # Parse instructions, separating out the broadcaster.
   broadcaster = None
   for i in instructions:
     _in, _out = i.split(" -> ")
@@ -119,7 +116,15 @@ def part1(L, press = 1000):
       if nodes[o].kind == CNJ:
         nodes[o].feed(_in)
 
-  for i in range(press):
+  return broadcaster
+
+def part1(L, press = 1000):
+  counts[0] = 0
+  counts[1] = 0
+
+  broadcaster = parseNodes(L)
+
+  for _ in range(press):
     counts[False] += 1
     q.extendleft([(nodes[n], "broadcaster", False) for n in broadcaster[::-1]])
 
@@ -128,11 +133,32 @@ def part1(L, press = 1000):
       node, name, pulse = q.pop()
       node.act(name, pulse)
 
-  print(counts[0] * counts[1])
   return counts[0] * counts[1]
 
 def part2(L):
-  pass
+  broadcaster = parseNodes(L)
+
+  lengths = {}
+  buttons = 0
+  seen = {n: 0 for n in nodes if nodes["mf"] in nodes[n].out}
+  while True:
+    buttons += 1
+    q.extendleft([(nodes[n], "broadcaster", False) for n in broadcaster[::-1]])
+
+    counts[False] += len(broadcaster)
+    while q:
+      node, name, pulse = q.pop()
+      if node.name == "mf" and pulse == True:
+        seen[name] += 1
+
+        if name not in lengths:
+          lengths[name] = buttons
+
+        if all(seen.values()):
+          print(lcm(*list(lengths.values())))
+          return lcm(*list(lengths.values()))
+
+      node.act(name, pulse)
 
 print("Test 1")
 assert part1(sample1) == 32000000
@@ -151,5 +177,5 @@ with open(path, "r") as f:
   print("assert part1(L) == 896998430 passed")
 
   print("Begin Part 2:")
-  assert part1(L, 10000000) == 0
-  print("assert part2(L) == 0 passed")
+  assert part2(L) == 236095992539963
+  print("assert part2(L) == 236095992539963 passed")
